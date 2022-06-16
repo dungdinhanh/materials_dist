@@ -58,8 +58,8 @@ if __name__ == '__main__':
         data = replicate(data, 5)
         # print(data.values)
 
-        data = gaussian_noise_adding(dataset, 5, 0.001)
-        exit(0)
+        # data = gaussian_noise_adding(dataset, 5, 0.001)
+        # exit(0)
 
         exp_clf101 = setup(data=data, target='output', session_id=123, silent=True)
         best_model = compare_models()
@@ -83,38 +83,38 @@ if __name__ == '__main__':
     print(list_values)
     exit(0)
 
-    # dataset
-    data = dataset.sample(frac=0.7, random_state=786)
-    data_unseen = dataset.drop(data.index)
-    data.reset_index(inplace=True, drop=True)
-    data_unseen.reset_index(inplace=True, drop=True)
-    print('Data for Modeling: ' + str(data.shape))
-    print('Unseen Data For Predictions: ' + str(data_unseen.shape))
-    print('original data: ' + str(dataset.shape))
-    # augment data
-    # replicate
-    data = replicate(data, 5)
-    # print(data.values)
-
-    exp_clf101 = setup(data = data, target = 'output', session_id=123)
-    best_model = compare_models()
-
-    print(best_model)
-    # tuned_model = tune_model(best_model)
+    # # dataset
+    # data = dataset.sample(frac=0.7, random_state=786)
+    # data_unseen = dataset.drop(data.index)
+    # data.reset_index(inplace=True, drop=True)
+    # data_unseen.reset_index(inplace=True, drop=True)
+    # print('Data for Modeling: ' + str(data.shape))
+    # print('Unseen Data For Predictions: ' + str(data_unseen.shape))
+    # print('original data: ' + str(dataset.shape))
+    # # augment data
+    # # replicate
+    # data = replicate(data, 5)
+    # # print(data.values)
+    #
+    # exp_clf101 = setup(data = data, target = 'output', session_id=123)
+    # best_model = compare_models()
+    #
+    # print(best_model)
+    # # tuned_model = tune_model(best_model)
+    # # final_model = finalize_model(tuned_model)
+    #
+    # dec_tree = create_model('dt', fold=5, round=2)
+    # print(dec_tree)
+    # tuned_model = tune_model(dec_tree)
     # final_model = finalize_model(tuned_model)
-
-    dec_tree = create_model('dt', fold=5, round=2)
-    print(dec_tree)
-    tuned_model = tune_model(dec_tree)
-    final_model = finalize_model(tuned_model)
-
-    unseen_predictions = predict_model(final_model, data=data_unseen)
-    # print(unseen_predictions)
-    unseen_predictions.head()
-
-
-    cm = check_metric(unseen_predictions['output'], unseen_predictions['Label'], metric='Accuracy')
-    print(cm)
-    #%%
+    #
+    # unseen_predictions = predict_model(final_model, data=data_unseen)
+    # # print(unseen_predictions)
+    # unseen_predictions.head()
+    #
+    #
+    # cm = check_metric(unseen_predictions['output'], unseen_predictions['Label'], metric='Accuracy')
+    # print(cm)
+    # #%%
 
     # models()
