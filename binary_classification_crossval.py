@@ -8,8 +8,16 @@ def replicate(samples, n=5):
     samples = samples.loc[samples.index.repeat(n)]
     return samples
 #
-# def gaussian_noise_adding(samples, alpha=0.001):
-#
+
+def gaussian_noise_adding(samples, alpha=0.001):
+    columns = samples.columns
+    print(columns)
+    values_columns = samples[columns[0:-1]]
+    label_columns = samples[columns[-1]]
+    # print(values_columns)
+    # print(label_columns)
+
+
 
 
 if __name__ == '__main__':
@@ -29,6 +37,9 @@ if __name__ == '__main__':
         print(data_unseen.shape)
         data = replicate(data, 5)
         # print(data.values)
+
+        data = gaussian_noise_adding(data, 0.001)
+        exit(0)
 
         exp_clf101 = setup(data=data, target='output', session_id=123, silent=True)
         best_model = compare_models()
