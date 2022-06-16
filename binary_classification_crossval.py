@@ -9,14 +9,34 @@ def replicate(samples, n=5):
     return samples
 #
 
-def gaussian_noise_adding(samples, alpha=0.001):
+def gaussian_noise_adding(samples, nos=5, alpha=0.001):
     columns = samples.columns
     print(columns)
-    values_columns = samples[columns[0:-1]]
-    label_columns = samples[columns[-1]]
+    values_columns = samples[columns[0:-1]].to_numpy()
+    label_columns = samples[columns[-1]].to_numpy()
+
+    std_values = values_columns.std(0)
+    mean_add = np.zeros_like(std_values)
+    std_add = std_values * alpha
+    cov_add = np.diag(std_add)
+    list_new_values = []
+    list_new_labels = []
+    list_new_values.append(values_columns)
+    list_new_labels.append(label_columns)
+    print(nos)
+    for i in range(nos):
+        noise_add = np.random.multivariate_normal(mean_add, cov_add, values_columns.shape[0])
+        new_values = values_columns + noise_add
+        list_new_values.append(new_values)
+        list_new_labels.append(label_columns.copy())
+    print(list_new_labels)
+
+
+    # print(std_values)
+    # print(std_add)
+    # exit(0)
     # print(values_columns)
     # print(label_columns)
-
 
 
 
@@ -38,7 +58,7 @@ if __name__ == '__main__':
         data = replicate(data, 5)
         # print(data.values)
 
-        data = gaussian_noise_adding(data, 0.001)
+        data = gaussian_noise_adding(dataset, 5, 0.001)
         exit(0)
 
         exp_clf101 = setup(data=data, target='output', session_id=123, silent=True)
